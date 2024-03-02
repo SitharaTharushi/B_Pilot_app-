@@ -1,5 +1,4 @@
 // ignore_for_file: unused_field, unused_import
-
 import 'package:flutter/material.dart';
 import 'signup.dart';
 import 'passenger_signup.dart';
@@ -15,8 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner:
-          false, // Set to false to remove the debug banner
+      debugShowCheckedModeBanner: false,
       title: 'Bus Tracking App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -37,19 +35,40 @@ class MyApp extends StatelessWidget {
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'B.Pilot',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
+        title: RichText(
+          text: const TextSpan(
+            text: 'B.',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.bold,
+            ),
+            children: [
+              TextSpan(
+                text: 'Pilot',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 232, 229, 228),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '\nBus Pilot Operator',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 19,
+                ),
+              ),
+            ],
           ),
         ),
-        backgroundColor: Colors.yellow,
+        backgroundColor: const Color.fromARGB(255, 247, 224, 26),
         centerTitle: true,
+        toolbarHeight: 150,
       ),
       body: Center(
         child: Column(
@@ -59,38 +78,58 @@ class RegistrationScreen extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 20.0),
               child: Image.asset(
                 'assets/dsBuffer.png',
-                width: 150,
+                width: double.infinity,
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/login');
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 20,
+            SizedBox(
+              width: 150,
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15,
+                  ),
+                  side: const BorderSide(color: Colors.black, width: 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  backgroundColor: Colors.white,
                 ),
-              ),
-              child: const Text(
-                'Login',
-                style: TextStyle(fontSize: 20),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/signup');
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 20,
+            const SizedBox(height: 10.0),
+            SizedBox(
+              width: 150,
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15,
+                  ),
+                  side: const BorderSide(color: Colors.black, width: 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  backgroundColor: Colors.white,
                 ),
-              ),
-              child: const Text(
-                'Sign Up',
-                style: TextStyle(fontSize: 20),
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
               ),
             ),
           ],
@@ -100,66 +139,6 @@ class RegistrationScreen extends StatelessWidget {
   }
 }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text(
-        'B.Pilot',
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 24,
-        ),
-      ),
-      backgroundColor: Colors.yellow,
-      centerTitle: true,
-    ),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: Image.asset(
-              'assets/dsBuffer.png',
-              width: 150,
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/login');
-            },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 40,
-                vertical: 20,
-              ),
-            ),
-            child: const Text(
-              'Login',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          const SizedBox(height: 20.0),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 40,
-                vertical: 20,
-              ),
-            ),
-            child: const Text(
-              'Sign Up',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -167,41 +146,118 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'B.Pilot',
-          style: TextStyle(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            text: 'B.',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.bold,
+            ),
+            children: [
+              TextSpan(
+                text: 'Pilot',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 232, 229, 228),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '\nBus Pilot Operator',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 19,
+                ),
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.yellow,
+        backgroundColor: const Color.fromARGB(255, 247, 224, 26),
+        centerTitle: true,
+        toolbarHeight: 150,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Login as a ',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const Row(
+              children: [
+                Text(
+                  'Login as a ',
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/person_login');
-                },
-                icon: const Icon(Icons.person),
-                label: const Text('Passenger'),
+            Center(
+              // Center the passenger login button
+              child: SizedBox(
+                width: 200,
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/person_login');
+                  },
+                  icon: const Column(
+                    children: [
+                      Icon(Icons.person, size: 120, color: Colors.black),
+                      SizedBox(height: 5),
+                      Text(
+                        'Passenger',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  label: const Text(''),
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    side: const BorderSide(color: Colors.black, width: 1),
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/pilot_login');
-                },
-                icon: const Icon(Icons.directions_bus),
-                label: const Text('Pilot'),
+            const SizedBox(height: 30), // Small space added here
+            Center(
+              // Center the pilot login button
+              child: SizedBox(
+                width: 200,
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/pilot_login');
+                  },
+                  icon: const Column(
+                    children: [
+                      Icon(Icons.directions_bus,
+                          size: 120, color: Colors.black),
+                      SizedBox(height: 5),
+                      Text(
+                        'Pilot',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  label: const Text(''),
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    side: const BorderSide(color: Colors.black, width: 1),
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                  ),
+                ),
               ),
             ),
           ],
@@ -221,7 +277,9 @@ class PersonLoginScreen extends StatefulWidget {
 
 class _PersonLoginScreenState extends State<PersonLoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  // ignore: unused_field
   String _nic = '';
+  // ignore: unused_field
   String _password = '';
 
   @override
@@ -271,16 +329,53 @@ class _PersonLoginScreenState extends State<PersonLoginScreen> {
           // Add your login logic here
         }
       },
-      child: const Text('Login'),
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(10), // Adjust the border radius here
+          side: const BorderSide(color: Colors.black), // Add black border color
+        ),
+        backgroundColor: Colors.white,
+        padding:
+            const EdgeInsets.symmetric(vertical: 15), // Button background color
+      ),
+      child: const Text(
+        'Login',
+        style: TextStyle(fontSize: 16, color: Colors.black),
+      ),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Person Login',
-          style: TextStyle(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            text: 'B.',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.bold,
+            ),
+            children: [
+              TextSpan(
+                text: 'Pilot',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 232, 229, 228),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '\nBus Pilot Operator',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 19,
+                ),
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.yellow,
+        backgroundColor: const Color.fromARGB(255, 247, 224, 26),
+        centerTitle: true,
+        toolbarHeight: 150,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -289,9 +384,14 @@ class _PersonLoginScreenState extends State<PersonLoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Login as a passenger',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              const Row(
+                children: [
+                  Text(
+                    'Login as a ',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  Icon(Icons.person, color: Colors.black, weight: 50, size: 40),
+                ],
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -304,9 +404,11 @@ class _PersonLoginScreenState extends State<PersonLoginScreen> {
                 child: passwordField,
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: loginButton,
+              Center(
+                child: SizedBox(
+                  width: 250,
+                  child: loginButton,
+                ),
               ),
             ],
           ),
@@ -326,8 +428,6 @@ class PilotLoginScreen extends StatefulWidget {
 
 class _PilotLoginScreenState extends State<PilotLoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final String _busRegistrationNumber = '';
-  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -360,30 +460,71 @@ class _PilotLoginScreenState extends State<PilotLoginScreen> {
         return null;
       },
       onSaved: (value) {
-        if (value != null) {
-          _password = value.toString();
-        }
+        if (value != null) {}
       },
     );
 
-    var loginButton = ElevatedButton(
-      onPressed: () {
-        if (_formKey.currentState?.validate() ?? false) {
-          _formKey.currentState?.save();
-          // Perform login with _busRegistrationNumber and _password
-          // Add your login logic here
-        }
-      },
-      child: const Text('Login'),
+    var loginButton = SizedBox(
+      width: 50,
+      child: ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState?.validate() ?? false) {
+            _formKey.currentState?.save();
+            // Perform login with _busRegistrationNumber and _password
+            // Add your login logic here
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(10), // Adjust the border radius here
+            side:
+                const BorderSide(color: Colors.black), // Add black border color
+          ),
+          backgroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 2,
+          ), // Button background color
+        ),
+        child: const Text(
+          'Login',
+          style: TextStyle(fontSize: 16, color: Colors.black),
+        ),
+      ),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Pilot Login',
-          style: TextStyle(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            text: 'B.',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.bold,
+            ),
+            children: [
+              TextSpan(
+                text: 'Pilot',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 232, 229, 228),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '\nBus Pilot Operator',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 19,
+                ),
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.yellow,
+        backgroundColor: const Color.fromARGB(255, 247, 224, 26),
+        centerTitle: true,
+        toolbarHeight: 150,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -392,9 +533,19 @@ class _PilotLoginScreenState extends State<PilotLoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Login as a Pilot',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              const Row(
+                children: [
+                  Text(
+                    'Login as a ',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  Icon(
+                    Icons.directions_bus,
+                    color: Colors.black,
+                    weight: 50,
+                    size: 50,
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -407,14 +558,16 @@ class _PilotLoginScreenState extends State<PilotLoginScreen> {
                 child: passwordField,
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: loginButton,
+              Center(
+                child: SizedBox(
+                  width: 250,
+                  child: loginButton,
+                ),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
+      ),
+    );
+  }
 }
