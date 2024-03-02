@@ -1,17 +1,11 @@
-// pilot_signup.dart
-
-// ignore_for_file: unused_field, unused_element
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// ignore: unused_import
-import 'package:flutter_application_1/dashboard.dart';
 import 'package:flutter_application_1/pilot_dashboard.dart';
 
 class PilotSignUpScreen extends StatefulWidget {
   const PilotSignUpScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _PilotSignUpScreenState createState() => _PilotSignUpScreenState();
 }
 
@@ -30,6 +24,10 @@ class _PilotSignUpScreenState extends State<PilotSignUpScreen> {
         labelText: 'Bus Registration Number',
         border: OutlineInputBorder(),
       ),
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) {
+        FocusScope.of(context).nextFocus();
+      },
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter a Bus Registration Number';
@@ -48,6 +46,10 @@ class _PilotSignUpScreenState extends State<PilotSignUpScreen> {
         labelText: 'Employee ID',
         border: OutlineInputBorder(),
       ),
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) {
+        FocusScope.of(context).nextFocus();
+      },
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter an Employee ID';
@@ -77,6 +79,10 @@ class _PilotSignUpScreenState extends State<PilotSignUpScreen> {
           },
         ),
       ),
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) {
+        FocusScope.of(context).nextFocus();
+      },
       validator: (value) {
         if (value == null || value.length < 8) {
           return 'Password should be at least 8 characters';
@@ -106,80 +112,124 @@ class _PilotSignUpScreenState extends State<PilotSignUpScreen> {
           },
         ),
       ),
+      textInputAction: TextInputAction.done,
       validator: (value) {
         if (_password.isNotEmpty && value != _password) {
           return 'Passwords do not match';
         }
         return null;
       },
-      onSaved: (value) {
-        // Use the value if needed
-      },
-    );
-
-    var signUpButton = ElevatedButton(
-      onPressed: () {
-        if (_formKey.currentState?.validate() ?? false) {
-          _formKey.currentState?.save();
-          // Perform sign-up with _busRegistrationNumber, _employeeID, _password, _confirmPassword
-          // Add your sign-up logic here
-
-          // After successful signup, navigate to the dashboard
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const PilotDashboardScreen()),
-          );
-        }
-      },
-      child: const Text('Sign Up'),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Pilot Sign Up',
-          style: TextStyle(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            text: 'B.',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.bold,
+            ),
+            children: [
+              TextSpan(
+                text: 'Pilot',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 232, 229, 228),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '\nBus Pilot Operator',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 19,
+                ),
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.yellow,
+        backgroundColor: const Color.fromARGB(255, 247, 224, 26),
+        centerTitle: true,
+        toolbarHeight: 150,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Sign Up as a Pilot',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: busRegNumberField,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: employeeIDField,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: passwordField,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: confirmPasswordField,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: signUpButton,
-              ),
-            ],
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Row(
+                  children: [
+                    Text(
+                      'Sign Up as a ',
+                      style:
+                          TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: 8), // Add some space between icon and text
+                    Icon(Icons.directions_bus, size: 40), // Add bus icon here
+                  ],
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: busRegNumberField,
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: employeeIDField,
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: passwordField,
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: confirmPasswordField,
+                ),
+                const SizedBox(height: 20),
+                Center(
+                  child: SizedBox(
+                    width: 250,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          _formKey.currentState?.save();
+                          // Perform sign-up with _busRegistrationNumber, _employeeID, _password, _confirmPassword
+                          // Add your sign-up logic here
+
+                          // After successful signup, show the PilotDashboardScreen
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PilotDashboardScreen(),
+                            ),
+                          );
+                        }
+                      },
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                        ),
+                        side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
