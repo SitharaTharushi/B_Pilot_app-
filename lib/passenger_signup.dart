@@ -1,7 +1,3 @@
-// passenger_signup.dart
-
-// ignore_for_file: unused_field, unused_import
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/dashboard.dart';
 
@@ -15,14 +11,41 @@ class PassengerSignUpScreen extends StatefulWidget {
 
 class _PassengerSignUpScreenState extends State<PassengerSignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _nic = '';
-  String _username = '';
   String _password = '';
   bool _isPasswordVisible = false;
+
+  late FocusNode _nicFocusNode;
+  late FocusNode _usernameFocusNode;
+  late FocusNode _passwordFocusNode;
+  late FocusNode _confirmPasswordFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _nicFocusNode = FocusNode();
+    _usernameFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+    _confirmPasswordFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _nicFocusNode.dispose();
+    _usernameFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     var nicField = TextFormField(
+      focusNode: _nicFocusNode,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) {
+        _nicFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(_usernameFocusNode);
+      },
       decoration: const InputDecoration(
         labelText: 'NIC Number',
         border: OutlineInputBorder(),
@@ -34,13 +57,17 @@ class _PassengerSignUpScreenState extends State<PassengerSignUpScreen> {
         return null;
       },
       onSaved: (value) {
-        if (value != null) {
-          _nic = value.toString();
-        }
+        if (value != null) {}
       },
     );
 
     var usernameField = TextFormField(
+      focusNode: _usernameFocusNode,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) {
+        _usernameFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(_passwordFocusNode);
+      },
       decoration: const InputDecoration(
         labelText: 'Username',
         border: OutlineInputBorder(),
@@ -52,13 +79,17 @@ class _PassengerSignUpScreenState extends State<PassengerSignUpScreen> {
         return null;
       },
       onSaved: (value) {
-        if (value != null) {
-          _username = value.toString();
-        }
+        if (value != null) {}
       },
     );
 
     var passwordField = TextFormField(
+      focusNode: _passwordFocusNode,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) {
+        _passwordFocusNode.unfocus();
+        FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
+      },
       obscureText: !_isPasswordVisible,
       decoration: InputDecoration(
         labelText: 'Password',
@@ -88,6 +119,12 @@ class _PassengerSignUpScreenState extends State<PassengerSignUpScreen> {
     );
 
     var confirmPasswordField = TextFormField(
+      focusNode: _confirmPasswordFocusNode,
+      textInputAction: TextInputAction.done,
+      onFieldSubmitted: (_) {
+        _confirmPasswordFocusNode.unfocus();
+        _submitForm();
+      },
       obscureText: !_isPasswordVisible,
       decoration: InputDecoration(
         labelText: 'Confirm Password',
@@ -114,71 +151,148 @@ class _PassengerSignUpScreenState extends State<PassengerSignUpScreen> {
       },
     );
 
-    var signUpButton = ElevatedButton(
-      onPressed: () {
-        if (_formKey.currentState?.validate() ?? false) {
-          _formKey.currentState?.save();
-          // Perform sign-up with _busRegistrationNumber, _employeeID, _password, _confirmPassword
-          // Add your sign-up logic here
+    var signUpButton = SizedBox(
+      width: 150,
+      child: ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState?.validate() ?? false) {
+            _formKey.currentState?.save();
+            // Perform sign-up with _nic, _username, _password
+            // Add your sign-up logic here
 
-          // After successful signup, navigate to the dashboard
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const DashboardScreen()),
-          );
-        }
-      },
-      child: const Text('Sign Up'),
+            // After successful signup, navigate to the dashboard
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const DashboardScreen()),
+            );
+          }
+        },
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            const EdgeInsets.symmetric(
+              vertical: 8, // Reduce vertical padding
+              horizontal: 16, // Reduce horizontal padding
+            ),
+          ),
+          side: MaterialStateProperty.all<BorderSide>(
+            const BorderSide(color: Colors.black), // Set border color
+          ),
+        ),
+        child: const Text(
+          'Sign Up',
+          style: TextStyle(
+            fontSize: 14, // Reduce font size
+            color: Colors.black,
+          ),
+        ),
+      ),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Passenger Sign Up',
-          style: TextStyle(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            text: 'B.',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.bold,
+            ),
+            children: [
+              TextSpan(
+                text: 'Pilot',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 232, 229, 228),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              TextSpan(
+                text: '\nBus Pilot Operator',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 19,
+                ),
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.yellow,
+        backgroundColor: const Color.fromARGB(255, 247, 224, 26),
+        centerTitle: true,
+        toolbarHeight: 150,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: _formKey,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Sign Up as a Passenger',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              const Row(
+                children: [
+                  Text(
+                    'Sign Up as a ',
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 8), // Add some space between icon and text
+                  Icon(Icons.person, size: 40), // Add bus icon here
+                ],
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: nicField,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: usernameField,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: passwordField,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: confirmPasswordField,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: signUpButton,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: nicField,
+                        ),
+                        const SizedBox(height: 17),
+                        SizedBox(
+                          width: double.infinity,
+                          child: usernameField,
+                        ),
+                        const SizedBox(height: 17),
+                        SizedBox(
+                          width: double.infinity,
+                          child: passwordField,
+                        ),
+                        const SizedBox(height: 17),
+                        SizedBox(
+                          width: double.infinity,
+                          child: confirmPasswordField,
+                        ),
+                        const SizedBox(height: 17),
+                        Center(
+                          child: SizedBox(
+                            width: 250,
+                            child: signUpButton,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      _formKey.currentState?.save();
+      // Perform sign-up with _nic, _username, _password
+      // Add your sign-up logic here
+
+      // After successful signup, navigate to the dashboard
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      );
+    }
   }
 }
