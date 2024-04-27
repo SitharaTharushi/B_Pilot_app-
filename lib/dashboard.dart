@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/passenger_timetable.dart';
 import 'about_us_page.dart';
 import 'help_support_page.dart';
 
@@ -32,7 +33,6 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
-  final List<String> _pageTitles = ['Dashboard', 'Notifications', 'Profile'];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -44,25 +44,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          _pageTitles[_selectedIndex],
-          style: const TextStyle(color: Colors.black),
+        backgroundColor: const Color.fromRGBO(255, 235, 59, 1),
+        centerTitle: true,
+        toolbarHeight: 150,
+        flexibleSpace: Container(
+          alignment: Alignment.center,
+          child: const Icon(Icons.person, size: 120),
         ),
-        backgroundColor: Colors.yellow,
       ),
       body: _getWidgetForIndex(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard, color: Colors.black),
-            label: 'Dashboard',
+            icon: Icon(Icons.dashboard),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications, color: Colors.black),
+            icon: Icon(Icons.notifications),
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.black),
+            icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
@@ -98,38 +100,85 @@ class DashboardView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildDashboardButton(Icons.map, 'Map View', () {
-          // Handle map view button tap
-        }),
-        const SizedBox(height: 50),
-        _buildDashboardButton(Icons.schedule, 'Time Tables', () {
-          // Handle time tables button tap
-        }),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildDashboardButton(
+              Icons.map,
+              'Map View',
+              () {
+                // Handle map view button tap
+              },
+            ),
+            const SizedBox(width: 32), // Increase the spacing
+            _buildDashboardButton(
+              Icons.schedule,
+              'Time Tables',
+              () {
+                // Navigate to timetable screen
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PassengerTimetableScreen(),
+                    ));
+              },
+            ),
+          ],
+        ),
         const SizedBox(height: 20),
-        _buildDashboardButton(Icons.location_on, 'Near Bus Stand', () {
-          // Handle near bus stand button tap
-        }),
+        Center(
+          child: _buildDashboardButton(
+            Icons.location_on,
+            'Near Bus Stand',
+            () {
+              // Handle near bus stand button tap
+            },
+          ),
+        ),
       ],
     );
   }
 
   Widget _buildDashboardButton(
-      IconData iconData, String label, VoidCallback onTap) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Icon(
-          iconData,
-          size: 70,
-          color: Colors.blue,
+    IconData iconData,
+    String label,
+    VoidCallback onTap,
+  ) {
+    return SizedBox(
+      width: 150, // Set the width of the button
+      height: 150, // Set the height of the button
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20), // Set the border radius
+          ),
+          side: const BorderSide(color: Colors.black), // Add a black border
         ),
-        const SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: onTap,
-          child: Text(label),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              iconData,
+              size: 45, // Set the icon size
+              color: Colors.black, // Set the icon color
+            ),
+            const SizedBox(height: 5), // Adjust the spacing
+            Flexible(
+              // Added Flexible widget
+              child: Text(
+                label,
+                textAlign: TextAlign.center, // Center align the text
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold, // Set text weight to bold
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -144,6 +193,7 @@ class NotificationsView extends StatelessWidget {
     );
   }
 }
+
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
 
@@ -165,12 +215,14 @@ class ProfileView extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.blue,
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+              foregroundColor: Colors.black,
+              backgroundColor: Colors.white,
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
+              side: const BorderSide(color: Colors.black), // Add a black border
             ),
             onPressed: () {
               Navigator.push(
@@ -181,18 +233,20 @@ class ProfileView extends StatelessWidget {
               );
             },
             child: const Text(
-              'Go to Help & Support',
+              'Help & Support',
             ),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.blue,
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+              foregroundColor: Colors.black,
+              backgroundColor: Colors.white,
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20, horizontal: 120),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
+              side: const BorderSide(color: Colors.black), // Add a black border
             ),
             onPressed: () {
               Navigator.push(
@@ -203,14 +257,14 @@ class ProfileView extends StatelessWidget {
               );
             },
             child: const Text(
-              'Go to About Us',
+              'About Us',
             ),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.blue,
               padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -229,4 +283,3 @@ class ProfileView extends StatelessWidget {
     );
   }
 }
-
